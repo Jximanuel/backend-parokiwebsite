@@ -14,6 +14,12 @@ app.use(cors())
 connectDb()
 
 app.use("/api", router)
+app.get("", ( req, res) =>{
+    res.json({
+        status :200,
+        msg: "server berjalan"
+    })
+})
 
 
 
