@@ -1,0 +1,20 @@
+import express from "express"
+import cors from "cors"
+import router from "./routes/api"
+import connectDb from "./utility/database"
+import env from "dotenv"
+
+env.config()
+
+
+const app = express()
+
+app.use(express.json())
+app.use(cors())
+connectDb()
+
+app.use("/api", router)
+
+
+
+export default app
