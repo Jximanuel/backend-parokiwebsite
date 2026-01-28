@@ -1,6 +1,7 @@
 import express from "express"
 import cors from "cors"
 import router from "./routes/api"
+import router_jadwal from "./routes/jadwal.api"
 import connectDb from "./utility/database"
 import env from "dotenv"
 
@@ -14,6 +15,7 @@ app.use(cors())
 connectDb()
 
 app.use("/api", router)
+app.use("/jadwal", router_jadwal)
 app.get("", ( req, res) =>{
     res.json({
         status :200,

@@ -9,6 +9,7 @@ const connectDB = async () => {
         console.log("cluster terhubung dengan nama databse", `${process.env.DB_NAME}`);
     } catch (error) {
         console.log("koneksi gagal", error)
+        
     }
 }
 

@@ -13,9 +13,15 @@ const regisValidate = Yup.object().shape({
 })
 
 export default {
+    
     async register (req: Request, res:Response){
         try {
+
+
             await regisValidate.validate(req.body, { abortEarly: false})
+            
+
+
             const { username, email, password} = req.body
 
             const saltRound = 16
@@ -31,21 +37,28 @@ export default {
             res.status(200).json({ msg: "register berhasil", data: result})
 
 
+
+
+
         } catch (error) {
             res.status(400).json({msg: "regsiter gagal", error})
         }
-    },
-
+    },                                                                                                                                                                                                                                                                                                                          
 
     async login (req: Request, res:Response){
         try {
             const jwt_secret = process.env.JWT_SECRET
-            const { username, password} = req.body
-            if(!username || !password) {
+            const { identifier, password} = req.body
+            if(!identifier || !password) {
                 return res.status(400).json({msg: "field harus diisi"})
             }
 
-            const user = await User.findOne({username})
+            const user = await User.findOne({
+                $or: [
+                    {username : identifier},
+                    {email : identifier}
+                 ]
+            })
 
 
             if(!user) {
@@ -92,4 +105,5 @@ export default {
             return res.status(400).json({ msg: "username dan password salah"})
         }
     }
+    
 }
